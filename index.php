@@ -1,3 +1,33 @@
+<?php
+    require_once("class/Cliente.class.php");
+
+    $exibirClientes = function($cliente, $key) {
+        $id = $key + 1;
+        $nome = $cliente->nome;
+        $cpf = $cliente->cpf;
+        $endereco = $cliente->endereco;
+        $cidade = $cliente->cidade;
+        $telefone = $cliente->telefone;
+
+        $html = "<tr class=\"odd gradeX\">
+                <td>{$id}</td>
+                <td>{$nome}</td>
+                <td>{$cpf}</td>
+                <td class=\"center\">{$endereco}</td>
+                <td class=\"center\">{$cidade}</td>
+                <td class=\"center\">{$telefone}</td>
+            </tr>";
+
+        echo $html;
+    };
+
+    $clientes = [
+        new Cliente('Walter Araújo Gomes Júnior', '00000000000', 'Rua Inglaterra 237', 'Itapira / SP', '1912345678'),
+        new Cliente('Thiago Oliveira', '00000000000', 'Avenida Paulista 1482', 'São Paulo / SP', '11123456789'),
+        new Cliente('Márcio Vasconcelos', '00000000000', 'Rua Oscar Freire 2082', 'São Paulo / SP', '1112345678'),
+        new Cliente('João Gomes', '00000000000', 'Avenida Brasil 52', 'Itapira / SP', '1112345678')
+    ];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,50 +68,9 @@
 
 <div id="wrapper">
 
-<!-- Navigation -->
-<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-<div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="index.html">OO v 1.0.0</a>
-</div>
-<!-- /.navbar-header -->
-<!-- /.dropdown -->
-<li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-    </a>
-    <ul class="dropdown-menu dropdown-user">
-        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-        </li>
-        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-        </li>
-        <li class="divider"></li>
-        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-        </li>
-    </ul>
-    <!-- /.dropdown-user -->
-</li>
-<!-- /.dropdown -->
-</ul>
-<!-- /.navbar-top-links -->
-
-<div class="navbar-default sidebar" role="navigation">
-    <div class="sidebar-nav navbar-collapse">
-        <ul class="nav" id="side-menu">
-            <li>
-                <a class="active" href="index.php"><i class="fa fa-table fa-fw"></i> Clientes</a>
-            </li>
-        </ul>
-    </div>
-    <!-- /.sidebar-collapse -->
-</div>
-<!-- /.navbar-static-side -->
-</nav>
+<?php
+    include("layout/navbar.php");
+?>
 
 <div id="page-wrapper">
 <div class="row">
@@ -100,7 +89,7 @@
 <!-- /.panel-heading -->
 <div class="panel-body">
 <div class="table-responsive">
-<table class="table table-striped table-bordered table-hover">
+<table class="table table-striped table-bordered table-hover" id="tabelaClientes">
 <thead>
 <tr>
     <th>#</th>
@@ -108,16 +97,11 @@
     <th>CPF</th>
     <th>Endereço</th>
     <th>Cidade</th>
+    <th>Telefone</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd gradeX">
-    <td>1</td>
-    <td>Juninho</td>
-    <td>000.000.000-00</td>
-    <td class="center">Rua Inglaterra rs</td>
-    <td class="center">Itapira / SP</td>
-</tr>
+<?php array_walk($clientes, $exibirClientes); ?>
 </tbody>
 </table>
 </div>
@@ -151,13 +135,27 @@
 <!-- Custom Theme JavaScript -->
 <script src="js/sb-admin-2.js"></script>
 
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
     $(document).ready(function() {
-        $('#dataTables-example').dataTable();
-    });
+        $('#tabelaClientes').dataTable({
+            "oLanguage": {
+                "sProcessing": "Aguarde enquanto os dados são carregados ...",
+                "sLengthMenu": "Mostrar _MENU_ registros por pagina",
+                "sZeroRecords": "Nenhum registro correspondente ao criterio encontrado",
+                "sInfoEmtpy": "Exibindo 0 a 0 de 0 registros",
+                "sInfo": "Exibindo de _START_ a _END_ de _TOTAL_ registros",
+                "sInfoFiltered": "",
+                "sSearch": "Procurar",
+                "oPaginate": {
+                    "sFirst":    "Primeiro",
+                    "sPrevious": "Anterior",
+                    "sNext":     "Próximo",
+                    "sLast":     "Último"
+                }
+            }
+        });
+    } );
 </script>
-
 </body>
 
 </html>
