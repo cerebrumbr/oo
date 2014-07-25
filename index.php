@@ -1,5 +1,8 @@
 <?php
     require_once("class/Cliente.class.php");
+    require_once("functions/modal.php");
+
+    $order = (isset($_GET['order']) ? $_GET['order'] : 'asc');
 
     $exibirClientes = function($cliente, $key) {
         $id = $key + 1;
@@ -9,13 +12,9 @@
         $cidade = $cliente->cidade;
         $telefone = $cliente->telefone;
 
-        $html = "<tr class=\"odd gradeX\">
+        $html = "<tr class=\"odd gradeX\" url=\"index.php?acao=mostrar&id={$id}\">
                 <td>{$id}</td>
                 <td>{$nome}</td>
-                <td>{$cpf}</td>
-                <td class=\"center\">{$endereco}</td>
-                <td class=\"center\">{$cidade}</td>
-                <td class=\"center\">{$telefone}</td>
             </tr>";
 
         echo $html;
@@ -25,8 +24,21 @@
         new Cliente('Walter Araújo Gomes Júnior', '00000000000', 'Rua Inglaterra 237', 'Itapira / SP', '1912345678'),
         new Cliente('Thiago Oliveira', '00000000000', 'Avenida Paulista 1482', 'São Paulo / SP', '11123456789'),
         new Cliente('Márcio Vasconcelos', '00000000000', 'Rua Oscar Freire 2082', 'São Paulo / SP', '1112345678'),
-        new Cliente('João Gomes', '00000000000', 'Avenida Brasil 52', 'Itapira / SP', '1112345678')
+        new Cliente('João Gomes', '00000000000', 'Avenida Brasil 52', 'Itapira / SP', '1112345678'),
+        new Cliente('Thiago Jessé', '00000000000', 'Rua Oscar Neto 92', 'Itapira / SP', '1112345678'),
+        new Cliente('Adriana Ribeiro', '00000000000', 'Rua Padre Roque 222', 'Poços de Caldas / MG', '1112345678'),
+        new Cliente('Cadu Pelegrini', '00000000000', 'Rua Frei Caneca 52', 'São Paulo / SP', '1112345678'),
+        new Cliente('André Toledo', '00000000000', 'Rua Frei Caneca 82', 'São Paulo / SP', '1112345678'),
+        new Cliente('Luiz Eduardo Morelli', '00000000000', 'Avenida Presidente Wilson 10', 'Santos / SP', '1112345678'),
+        new Cliente('Leonardo Parentoni', '00000000000', 'Avenida Siqueira Campos 52', 'Itapira / SP', '1112345678')
     ];
+
+    if($order == 'desc') {
+        $order = 'asc';
+        krsort($clientes);
+    } else {
+        $order = 'desc';
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,8 +72,6 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </head>
 
 <body>
@@ -84,20 +94,16 @@
 <div class="col-lg-12">
 <div class="panel panel-default">
 <div class="panel-heading">
-    Listagem de clientes
+    Listagem de clientes (clique sob o cliente desejado para exibir todos os dados detalhadamente)
 </div>
 <!-- /.panel-heading -->
 <div class="panel-body">
 <div class="table-responsive">
 <table class="table table-striped table-bordered table-hover" id="tabelaClientes">
 <thead>
-<tr>
-    <th>#</th>
+<tr url="index.php?order=<?php echo $order; ?>">
+    <th># <i class="fa fa-sort"></i></th>
     <th>Nome</th>
-    <th>CPF</th>
-    <th>Endereço</th>
-    <th>Cidade</th>
-    <th>Telefone</th>
 </tr>
 </thead>
 <tbody>
@@ -119,6 +125,17 @@
 </div>
 <!-- /#wrapper -->
 
+<?php
+if(isset($_GET['acao'])) {
+    switch($_GET['acao']) {
+        case 'mostrar':
+            $id = (int) ($_GET['id'] - 1);
+            echo modalClientes($clientes, $id);
+            break;
+    }
+}
+?>
+
 <!-- jQuery Version 1.11.0 -->
 <script src="js/jquery-1.11.0.js"></script>
 
@@ -129,33 +146,26 @@
 <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
 
 <!-- DataTables JavaScript -->
-<script src="js/plugins/dataTables/jquery.dataTables.js"></script>
 <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="js/sb-admin-2.js"></script>
 
 <script>
-    $(document).ready(function() {
-        $('#tabelaClientes').dataTable({
-            "oLanguage": {
-                "sProcessing": "Aguarde enquanto os dados são carregados ...",
-                "sLengthMenu": "Mostrar _MENU_ registros por pagina",
-                "sZeroRecords": "Nenhum registro correspondente ao criterio encontrado",
-                "sInfoEmtpy": "Exibindo 0 a 0 de 0 registros",
-                "sInfo": "Exibindo de _START_ a _END_ de _TOTAL_ registros",
-                "sInfoFiltered": "",
-                "sSearch": "Procurar",
-                "oPaginate": {
-                    "sFirst":    "Primeiro",
-                    "sPrevious": "Anterior",
-                    "sNext":     "Próximo",
-                    "sLast":     "Último"
-                }
-            }
+    $(document).ready(function(){
+        if($("#modalCliente").length > 0) {
+            $("#modalCliente").modal();
+        }
+
+        $("tr").css("cursor", "pointer");
+
+        $("tr").click(function(){
+            window.location = $(this).attr("url");
+
         });
-    } );
+    });
 </script>
+
 </body>
 
 </html>
