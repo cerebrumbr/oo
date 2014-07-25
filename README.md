@@ -6,7 +6,7 @@ Projeto de cadastro / listagem de clientes para a fase de OO da Code.Education.
 Versão
 ----
 
-1.0.0
+1.1.0
 
 Instalação e utilização
 --------------
