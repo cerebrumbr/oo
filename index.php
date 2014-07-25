@@ -4,7 +4,7 @@
 
     $order = (isset($_GET['order']) ? $_GET['order'] : 'asc');
 
-    $exibirClientes = function($cliente, $key) {
+    $exibirClientes = function($cliente, $key) use($order) {
         $id = $key + 1;
         $nome = $cliente->nome;
         $cpf = $cliente->cpf;
@@ -12,7 +12,7 @@
         $cidade = $cliente->cidade;
         $telefone = $cliente->telefone;
 
-        $html = "<tr class=\"odd gradeX\" url=\"index.php?acao=mostrar&id={$id}\">
+        $html = "<tr class=\"odd gradeX\" url=\"index.php?acao=mostrar&id={$id}&order={$order}\">
                 <td>{$id}</td>
                 <td>{$nome}</td>
             </tr>";
