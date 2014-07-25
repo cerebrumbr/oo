@@ -20,4 +20,3 @@ Plug-ins utilizados
 --------------
 
 * jQuery [(site)](http://jquery.com/ "(site)")
-* DataTable [(site)](http://www.datatables.net/ "(site)")
