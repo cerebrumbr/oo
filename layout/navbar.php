@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">OO v 1.0.0</a>
+        <a class="navbar-brand" href="index.php">OO v 1.0.0</a>
     </div>
     <!-- /.navbar-header -->
     <!-- /.navbar-top-links -->
