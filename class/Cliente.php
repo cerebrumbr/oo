@@ -8,12 +8,16 @@
         private $cidade;
         private $telefone;
 
-        public function __construct($nome, $cpf, $endereco, $cidade, $telefone) {
+        private $grauImportancia;
+
+        public function __construct($nome, $cpf, $endereco, $cidade, $telefone, $grauImportancia = 1) {
             $this->setNome($nome)
                 ->setCpf($cpf)
                 ->setEndereco($endereco)
                 ->setCidade($cidade)
                 ->setTelefone($telefone);
+
+            $this->setGrauImportancia($grauImportancia);
         }
         /**
          * @param mixed $cidade
@@ -105,11 +109,11 @@
 
         public function setGrauImportancia($estrelas = 1)
         {
-            // TODO: Implement setGrauImportancia() method.
+            $this->grauImportancia = 1;
         }
 
         public function getGrauImportancia()
         {
-            // TODO: Implement getGrauImportancia() method.
+            return $this->grauImportancia;
         }
     }

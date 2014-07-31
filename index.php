@@ -1,6 +1,8 @@
 <?php
-    require_once("class/Cliente.class.php");
-    require_once("functions/modal.php");
+    require_once "functions/modal.php";
+
+    require_once "class/ClienteInterface.php";
+    require_once "class/Cliente.php";
 
     $order = (isset($_GET['order']) ? $_GET['order'] : 'asc');
 
@@ -21,15 +23,15 @@
     };
 
     $clientes = [
-        new Cliente('Walter Araújo Gomes Júnior', '00000000000', 'Rua Inglaterra 237', 'Itapira / SP', '1912345678'),
-        new Cliente('Thiago Oliveira', '00000000000', 'Avenida Paulista 1482', 'São Paulo / SP', '11123456789'),
-        new Cliente('Márcio Vasconcelos', '00000000000', 'Rua Oscar Freire 2082', 'São Paulo / SP', '1112345678'),
+        new Cliente('Walter Araújo Gomes Júnior', '00000000000', 'Rua Inglaterra 237', 'Itapira / SP', '1912345678', 10),
+        new Cliente('Thiago Oliveira', '00000000000', 'Avenida Paulista 1482', 'São Paulo / SP', '11123456789', 5),
+        new Cliente('Márcio Vasconcelos', '00000000000', 'Rua Oscar Freire 2082', 'São Paulo / SP', '1112345678', 10),
         new Cliente('João Gomes', '00000000000', 'Avenida Brasil 52', 'Itapira / SP', '1112345678'),
-        new Cliente('Thiago Jessé', '00000000000', 'Rua Oscar Neto 92', 'Itapira / SP', '1112345678'),
-        new Cliente('Adriana Ribeiro', '00000000000', 'Rua Padre Roque 222', 'Poços de Caldas / MG', '1112345678'),
+        new Cliente('Thiago Jessé', '00000000000', 'Rua Oscar Neto 92', 'Itapira / SP', '1112345678', 1),
+        new Cliente('Adriana Ribeiro', '00000000000', 'Rua Padre Roque 222', 'Poços de Caldas / MG', '1112345678', 2),
         new Cliente('Cadu Pelegrini', '00000000000', 'Rua Frei Caneca 52', 'São Paulo / SP', '1112345678'),
         new Cliente('André Toledo', '00000000000', 'Rua Frei Caneca 82', 'São Paulo / SP', '1112345678'),
-        new Cliente('Luiz Eduardo Morelli', '00000000000', 'Avenida Presidente Wilson 10', 'Santos / SP', '1112345678'),
+        new Cliente('Luiz Eduardo Morelli', '00000000000', 'Avenida Presidente Wilson 10', 'Santos / SP', '1112345678', 4),
         new Cliente('Leonardo Parentoni', '00000000000', 'Avenida Siqueira Campos 52', 'Itapira / SP', '1112345678')
     ];
 
