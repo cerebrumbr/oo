@@ -10,5 +10,5 @@
         public function setGrauImportancia($estrelas = 1);
         public function getGrauImportancia();
 
-        public function ePessoaJuririca();
+        public function ePessoaJuridica();
     }

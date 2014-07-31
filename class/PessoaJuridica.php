@@ -1,18 +1,20 @@
 <?php
     require_once("functions/mask.php");
 
-    class PessoaFisica implements ClienteInterface {
-        private $nome;
-        private $cpf;
+    class PessoaJuridica implements ClienteInterface {
+        private $nomeFantasia;
+        private $razaoSocial;
+        private $cnpj;
         private $endereco;
         private $cidade;
         private $telefone;
 
         private $grauImportancia = 1;
 
-        public function __construct($nome, $cpf, $endereco, $cidade) {
-            $this->setNome($nome)
-                ->setCpf($cpf)
+        public function __construct($nome, $razaoSocial, $cnpj, $endereco, $cidade) {
+            $this->setNomeFantasia($nome)
+                ->setRazaoSocial($razaoSocial)
+                ->setCnpj($cnpj)
                 ->setEndereco($endereco)
                 ->setCidade($cidade);
         }
@@ -28,18 +30,6 @@
             return $this->cidade;
         }
 
-        public function setCpf($cpf)
-        {
-            $this->cpf = mask($cpf, "###.###.###-##");;
-
-            return $this;
-        }
-
-        public function getCpf()
-        {
-            return $this->cpf;
-        }
-
         public function setEndereco($endereco)
         {
             $this->endereco = $endereco;
@@ -51,15 +41,38 @@
             return $this->endereco;
         }
 
-        public function setNome($nome)
+        public function setNomeFantasia($nome)
         {
-            $this->nome = $nome;
+            $this->nomeFantasia = $nome;
             return $this;
         }
 
-        public function getNome()
+        public function getNomeFantasia() {
+            return $this->nomeFantasia;
+        }
+
+        public function setCnpj($cnpj)
         {
-            return $this->nome;
+            $this->cnpj = mask($cnpj, "###.###.###-##");;
+
+            return $this;
+        }
+
+        public function getCnpj()
+        {
+            return $this->cnpj;
+        }
+
+        public function setRazaoSocial($razaoSocial)
+        {
+            $this->razaoSocial = $razaoSocial;
+
+            return $this;
+        }
+
+        public function getRazaoSocial()
+        {
+            return $this->razaoSocial;
         }
 
         public function setTelefone($telefone)
@@ -87,6 +100,6 @@
 
         public function ePessoaJuridica()
         {
-            return false;
+            return true;
         }
     }
