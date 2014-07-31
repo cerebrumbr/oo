@@ -37,8 +37,7 @@
          */
         public function setCpf($cpf)
         {
-            $cpf = mask($cpf, "###.###.###-##");
-            $this->cpf = $cpf;
+            $this->cpf = mask($cpf, "###.###.###-##");;
 
             return $this;
         }
