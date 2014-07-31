@@ -10,14 +10,11 @@
 
         private $grauImportancia;
 
-        public function __construct($nome, $cpf, $endereco, $cidade, $telefone, $grauImportancia = 1) {
+        public function __construct($nome, $cpf, $endereco, $cidade) {
             $this->setNome($nome)
                 ->setCpf($cpf)
                 ->setEndereco($endereco)
-                ->setCidade($cidade)
-                ->setTelefone($telefone);
-
-            $this->setGrauImportancia($grauImportancia);
+                ->setCidade($cidade);
         }
         /**
          * @param mixed $cidade
@@ -117,7 +114,7 @@
             return $this->grauImportancia;
         }
 
-        public function ePessoaJuridica()
+        public function ePessoaJuririca()
         {
             return false;
         }
