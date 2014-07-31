@@ -31,13 +31,16 @@
             $cidade = $cliente->getCidade();
             $telefone = $cliente->getTelefone();
 
+            $grauImportancia = $cliente->getGrauImportancia();
+
             $modalTitle = 'Cliente #'.$id . ' ' . $nome;
 
             $modalBody = '<b>Nome:</b> '.$nome.'<br />
                             <b>CPF:</b> '.$cpf.'<br />
                             <b>Endereço:</b> '.$endereco.'<br />
                             <b>Cidade:</b> '.$cidade.'<br />
-                            <b>Telefone:</b> '.$telefone;
+                            <b>Telefone:</b> '.$telefone . '<br />
+                            <b>Grau de importância:</b> ' . $grauImportancia . ' ' . ($grauImportancia > 1 ? 'estrelas' : 'estrela') . ' | ' . str_repeat('<i class="fa fa-star"></i>', $grauImportancia);
 
             $html = modal($modalTitle, $modalBody);
 
