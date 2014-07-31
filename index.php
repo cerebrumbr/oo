@@ -1,9 +1,8 @@
 <?php
-    require_once "functions/modal.php";
+    require_once "autoload.php";
 
-    require_once "class/ClienteInterface.php";
-    require_once "class/PessoaFisica.php";
-    require_once "class/PessoaJuridica.php";
+    require_once "functions/modal.php";
+    require_once "functions/clientes.php";
 
     $cliente = new PessoaFisica("Walter Araújo Gomes Júnior", "78849372639", "Rua Inglaterra 237", "Itapira / SP");
     $cliente->setTelefone("1938436776")
@@ -18,34 +17,6 @@
     $clientes[] = $cliente;
 
     $order = (isset($_GET['order']) ? $_GET['order'] : 'asc');
-
-    $exibirClientes = function($cliente, $key) use($order) {
-        $id = $key + 1;
-        $pessoaJuridica = $cliente->ePessoaJuridica();
-        if($pessoaJuridica)
-        {
-            $nome = $cliente->getRazaoSocial();
-            $cpf = $cliente->getCnpj();
-        } else {
-            $nome = $cliente->getNome();
-            $cpf = $cliente->getCpf();
-        }
-
-
-        $endereco = $cliente->getEndereco();
-        $cidade = $cliente->getCidade();
-        $telefone = $cliente->getTelefone();
-
-        $tipoPessoa = ($pessoaJuridica ? 'Pessoa Jurídica' : 'Pessoa Física');
-
-        $html = "<tr class=\"odd gradeX\" url=\"index.php?acao=mostrar&id={$id}&order={$order}\">
-                <td>{$id}</td>
-                <td>{$nome}</td>
-                <td>{$tipoPessoa}</td>
-            </tr>";
-
-        echo $html;
-    };
 
     if($order == 'desc') {
         $order = 'asc';
