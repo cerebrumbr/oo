@@ -25,24 +25,35 @@
         $id++;
 
         if(isset($cliente)){
-            $nome = $cliente->getNome();
-            $cpf = $cliente->getCpf();
+            $id = $key + 1;
+
+            $pessoaJuridica = $cliente->ePessoaJuridica();
             $endereco = $cliente->getEndereco();
             $cidade = $cliente->getCidade();
             $telefone = $cliente->getTelefone();
-
+            $tipoPessoa = ($pessoaJuridica ? 'Pessoa Jurídica' : 'Pessoa Física');
             $grauImportancia = $cliente->getGrauImportancia();
 
-            $modalTitle = 'Cliente #'.$id . ' ' . $nome;
+            $dados = [
+                'Tipo Pessoa' => $tipoPessoa,
+                ($pessoaJuridica ? 'Razão Social' : 'Nome') => $pessoaJuridica ? $cliente->getRazaoSocial() : $cliente->getNome(),
+                ($pessoaJuridica ? 'CNPJ' : 'CPF') => $pessoaJuridica ? $cliente->getCnpj() : $cliente->getCpf(),
+                'Telefone' => $cliente->getTelefone(),
+                'Grau de importancia' => $grauImportancia . ' ' . ($grauImportancia > 1 ? 'estrelas' : 'estrela') . ' | ' . str_repeat('<i class="fa fa-star"></i>', $grauImportancia)
+            ];
 
-            $modalBody = '<b>Nome:</b> '.$nome.'<br />
-                            <b>CPF:</b> '.$cpf.'<br />
-                            <b>Endereço:</b> '.$endereco.'<br />
-                            <b>Cidade:</b> '.$cidade.'<br />
-                            <b>Telefone:</b> '.$telefone . '<br />
-                            <b>Grau de importância:</b> ' . $grauImportancia . ' ' . ($grauImportancia > 1 ? 'estrelas' : 'estrela') . ' | ' . str_repeat('<i class="fa fa-star"></i>', $grauImportancia);
+            $modalBody = function() use ($dados) {
+              $html = "";
+              foreach($dados as $k => $v) {
+                 $html .= "<b>{$k}</b>: {$v}<br />";
+              }
 
-            $html = modal($modalTitle, $modalBody);
+              return $html;
+            };
+
+            $modalTitle = "Cliente #{$id} {$nome}";
+
+            $html = modal($modalTitle, $modalBody());
 
         } else {
             $html = modal("Cliente não encontrado!", "O cliente <b>#{$id}</b> não foi encontrado no sistema!<br />
