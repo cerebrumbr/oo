@@ -25,21 +25,21 @@
         $id++;
 
         if(isset($cliente)){
-        $nome = $cliente->nome;
-        $cpf = $cliente->cpf;
-        $endereco = $cliente->endereco;
-        $cidade = $cliente->cidade;
-        $telefone = $cliente->telefone;
+            $nome = $cliente->getNome();
+            $cpf = $cliente->getCpf();
+            $endereco = $cliente->getEndereco();
+            $cidade = $cliente->getCidade();
+            $telefone = $cliente->getTelefone();
 
-        $modalTitle = 'Cliente #'.$id . ' ' . $nome;
+            $modalTitle = 'Cliente #'.$id . ' ' . $nome;
 
-        $modalBody = '<b>Nome:</b> '.$nome.'<br />
-                        <b>CPF:</b> '.$cpf.'<br />
-                        <b>Endereço:</b> '.$endereco.'<br />
-                        <b>Cidade:</b> '.$cidade.'<br />
-                        <b>Telefone:</b> '.$telefone;
+            $modalBody = '<b>Nome:</b> '.$nome.'<br />
+                            <b>CPF:</b> '.$cpf.'<br />
+                            <b>Endereço:</b> '.$endereco.'<br />
+                            <b>Cidade:</b> '.$cidade.'<br />
+                            <b>Telefone:</b> '.$telefone;
 
-        $html = modal($modalTitle, $modalBody);
+            $html = modal($modalTitle, $modalBody);
 
         } else {
             $html = modal("Cliente não encontrado!", "O cliente <b>#{$id}</b> não foi encontrado no sistema!<br />
