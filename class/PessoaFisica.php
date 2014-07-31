@@ -1,7 +1,7 @@
 <?php
     require_once("functions/mask.php");
 
-    class Cliente implements ClienteInterface {
+    class PessoaFisica implements ClienteInterface {
         private $nome;
         private $cpf;
         private $endereco;
@@ -115,5 +115,10 @@
         public function getGrauImportancia()
         {
             return $this->grauImportancia;
+        }
+
+        public function ePessoaJuridica()
+        {
+            return false;
         }
     }
