@@ -109,7 +109,7 @@
 
         public function setGrauImportancia($estrelas = 1)
         {
-            $this->grauImportancia = 1;
+            $this->grauImportancia = $estrelas;
         }
 
         public function getGrauImportancia()
