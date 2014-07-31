@@ -6,11 +6,11 @@
 
     $exibirClientes = function($cliente, $key) use($order) {
         $id = $key + 1;
-        $nome = $cliente->nome;
-        $cpf = $cliente->cpf;
-        $endereco = $cliente->endereco;
-        $cidade = $cliente->cidade;
-        $telefone = $cliente->telefone;
+        $nome = $cliente->getNome();
+        $cpf = $cliente->getCpf();
+        $endereco = $cliente->getEndereco();
+        $cidade = $cliente->getCidade();
+        $telefone = $cliente->getTelefone();
 
         $html = "<tr class=\"odd gradeX\" url=\"index.php?acao=mostrar&id={$id}&order={$order}\">
                 <td>{$id}</td>
