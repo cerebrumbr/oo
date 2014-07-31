@@ -2,38 +2,50 @@
     require_once "functions/modal.php";
 
     require_once "class/ClienteInterface.php";
-    require_once "class/Cliente.php";
+    require_once "class/PessoaFisica.php";
+    require_once "class/PessoaJuridica.php";
+
+    $cliente = new PessoaFisica("Walter Araújo Gomes Júnior", "78849372639", "Rua Inglaterra 237", "Itapira / SP");
+    $cliente->setTelefone("1938436776")
+            ->setGrauImportancia(5);
+
+    $clientes[] = $cliente;
+
+    $cliente = new PessoaJuridica("Nome", "razão", "000000", "rua", "cidade");
+    $cliente->setTelefone("1938436776")
+        ->setGrauImportancia(5);
+
+    $clientes[] = $cliente;
 
     $order = (isset($_GET['order']) ? $_GET['order'] : 'asc');
 
     $exibirClientes = function($cliente, $key) use($order) {
         $id = $key + 1;
-        $nome = $cliente->getNome();
-        $cpf = $cliente->getCpf();
+        $pessoaJuridica = $cliente->ePessoaJuridica();
+        if($pessoaJuridica)
+        {
+            $nome = $cliente->getRazaoSocial();
+            $cpf = $cliente->getCnpj();
+        } else {
+            $nome = $cliente->getNome();
+            $cpf = $cliente->getCpf();
+        }
+
+
         $endereco = $cliente->getEndereco();
         $cidade = $cliente->getCidade();
         $telefone = $cliente->getTelefone();
 
+        $tipoPessoa = ($pessoaJuridica ? 'Pessoa Jurídica' : 'Pessoa Física');
+
         $html = "<tr class=\"odd gradeX\" url=\"index.php?acao=mostrar&id={$id}&order={$order}\">
                 <td>{$id}</td>
                 <td>{$nome}</td>
+                <td>{$tipoPessoa}</td>
             </tr>";
 
         echo $html;
     };
-
-    $clientes = [
-        new Cliente('Walter Araújo Gomes Júnior', '00000000000', 'Rua Inglaterra 237', 'Itapira / SP', '1912345678', 10),
-        new Cliente('Thiago Oliveira', '00000000000', 'Avenida Paulista 1482', 'São Paulo / SP', '11123456789', 5),
-        new Cliente('Márcio Vasconcelos', '00000000000', 'Rua Oscar Freire 2082', 'São Paulo / SP', '1112345678', 10),
-        new Cliente('João Gomes', '00000000000', 'Avenida Brasil 52', 'Itapira / SP', '1112345678'),
-        new Cliente('Thiago Jessé', '00000000000', 'Rua Oscar Neto 92', 'Itapira / SP', '1112345678', 1),
-        new Cliente('Adriana Ribeiro', '00000000000', 'Rua Padre Roque 222', 'Poços de Caldas / MG', '1112345678', 2),
-        new Cliente('Cadu Pelegrini', '00000000000', 'Rua Frei Caneca 52', 'São Paulo / SP', '1112345678'),
-        new Cliente('André Toledo', '00000000000', 'Rua Frei Caneca 82', 'São Paulo / SP', '1112345678'),
-        new Cliente('Luiz Eduardo Morelli', '00000000000', 'Avenida Presidente Wilson 10', 'Santos / SP', '1112345678', 4),
-        new Cliente('Leonardo Parentoni', '00000000000', 'Avenida Siqueira Campos 52', 'Itapira / SP', '1112345678')
-    ];
 
     if($order == 'desc') {
         $order = 'asc';
@@ -106,6 +118,7 @@
 <tr url="index.php?order=<?php echo $order; ?>">
     <th># <i class="fa fa-sort"></i></th>
     <th>Nome</th>
+    <th>Tipo pessoa</th>
 </tr>
 </thead>
 <tbody>
