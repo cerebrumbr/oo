@@ -1,5 +1,4 @@
 <?php
-    require_once("functions/mask.php");
 
     class PessoaJuridica extends Cliente implements ClienteInterface {
         private $nomeFantasia;
@@ -10,7 +9,7 @@
             $this->setNomeFantasia($nome)
                 ->setRazaoSocial($razaoSocial)
                 ->setCnpj($cnpj)
-                ->setEndereco($endereco)
+                ->setEndereco('residencial', $endereco)
                 ->setCidade($cidade);
         }
 

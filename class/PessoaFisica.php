@@ -1,5 +1,4 @@
 <?php
-    require_once("functions/mask.php");
 
     class PessoaFisica extends Cliente implements ClienteInterface {
         private $nome;
@@ -8,7 +7,7 @@
         public function __construct($nome, $cpf, $endereco, $cidade) {
             $this->setNome($nome)
                 ->setCpf($cpf)
-                ->setEndereco($endereco)
+                ->setEndereco('residencial', $endereco)
                 ->setCidade($cidade);
         }
 
@@ -34,5 +33,4 @@
         {
             return $this->nome;
         }
-
     }

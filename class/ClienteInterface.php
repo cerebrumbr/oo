@@ -1,7 +1,7 @@
 <?php
 
     interface ClienteInterface {
-        public function setEndereco($endereco);
+        public function setEndereco($tipo, $endereco);
         public function getEndereco();
 
         public function setTelefone($telefone);

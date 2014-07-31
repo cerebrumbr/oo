@@ -1,14 +1,17 @@
 <?php
+    require_once("functions/mask.php");
 
     class Cliente {
-        private $endereco;
+        private $endereco = ['residencial', 'cobranca'];
         private $cidade;
         private $telefone;
         private $grauImportancia = 1;
 
-        public function setEndereco($endereco)
+        public function setEndereco($tipo = 'residencial', $endereco)
         {
-            $this->endereco = $endereco;
+            $tipo = ($tipo == 'residencial' || $tipo == 'cobranca' ? $tipo : 'residencial');
+            $this->endereco[$tipo][] = $endereco;
+
             return $this;
         }
 
@@ -54,5 +57,13 @@
         public function ePessoaJuridica()
         {
             return false;
+        }
+
+        public function setEnderecoCobranca($endereco) {
+            $this->endereco['cobranca'][] = $endereco;
+        }
+
+        public function getEnderecoCobranca() {
+            return $this->endereco['cobranca'];
         }
     }
