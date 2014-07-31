@@ -8,7 +8,7 @@
         private $cidade;
         private $telefone;
 
-        private $grauImportancia;
+        private $grauImportancia = 1;
 
         public function __construct($nome, $cpf, $endereco, $cidade) {
             $this->setNome($nome)
