@@ -1,6 +1,6 @@
 <?php
 
     interface ClienteInterface {
-        protected function setGrauImportancia($estrelas);
-        protected function getGrauImportancia($estrelas);
+        public function setGrauImportancia($estrelas = 1);
+        public function getGrauImportancia();
     }
