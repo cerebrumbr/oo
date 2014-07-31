@@ -2,37 +2,105 @@
     require_once("functions/mask.php");
 
     class Cliente {
-        public $nome;
-        public $cpf;
-        public $endereco;
-        public $cidade;
-        public $telefone;
+        private $nome;
+        private $cpf;
+        private $endereco;
+        private $cidade;
+        private $telefone;
 
         public function __construct($nome, $cpf, $endereco, $cidade, $telefone) {
-            $this->nome = $nome;
-            $this->cpf = $this->formatarValor($cpf)->cpf();
-            $this->endereco = $endereco;
-            $this->cidade = $cidade;
-            $this->telefone = $this->formatarValor($telefone)->telefone();
+            $this->setNome($nome)
+                ->setCpf($cpf)
+                ->setEndereco($endereco)
+                ->setCidade($cidade)
+                ->setTelefone($telefone);
         }
-
-        private function formatarValor($valor) {
-            $this->valor_tmp = $valor;
+        /**
+         * @param mixed $cidade
+         */
+        public function setCidade($cidade)
+        {
+            $this->cidade = $cidade;
             return $this;
         }
 
-        private function telefone() {
-            $mask = (strlen($this->valor_tmp) == 10 ? "(##) ####-####" : "(##) # ####-####");
-            $resultado = mask($this->valor_tmp, $mask);
-            unset($this->valor_tmp);
-
-            return $resultado;
+        /**
+         * @return mixed
+         */
+        public function getCidade()
+        {
+            return $this->cidade;
         }
 
-        private function cpf() {
-            $cpf = $this->valor_tmp;
-            unset($this->valor_tmp);
+        /**
+         * @param mixed $cpf
+         */
+        public function setCpf($cpf)
+        {
+            $cpf = mask($cpf, "###.###.###-##");
+            $this->cpf = $cpf;
 
-            return mask($cpf, "###.###.###-##");
+            return $this;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getCpf()
+        {
+            return $this->cpf;
+        }
+
+        /**
+         * @param mixed $endereco
+         */
+        public function setEndereco($endereco)
+        {
+            $this->endereco = $endereco;
+            return $this;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getEndereco()
+        {
+            return $this->endereco;
+        }
+
+        /**
+         * @param mixed $nome
+         */
+        public function setNome($nome)
+        {
+            $this->nome = $nome;
+            return $this;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getNome()
+        {
+            return $this->nome;
+        }
+
+        /**
+         * @param mixed $telefone
+         */
+        public function setTelefone($telefone)
+        {
+            $mask = (strlen($telefone) == 10 ? "(##) ####-####" : "(##) # ####-####");
+            $this->telefone = mask($telefone, $mask);;
+
+            return $this;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getTelefone()
+        {
+            return $this->telefone;
         }
     }
