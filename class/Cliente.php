@@ -1,7 +1,7 @@
 <?php
     require_once("functions/mask.php");
 
-    class Cliente {
+    class Cliente implements ClienteInterface {
         private $nome;
         private $cpf;
         private $endereco;
@@ -101,5 +101,15 @@
         public function getTelefone()
         {
             return $this->telefone;
+        }
+
+        public function setGrauImportancia($estrelas = 1)
+        {
+            // TODO: Implement setGrauImportancia() method.
+        }
+
+        public function getGrauImportancia()
+        {
+            // TODO: Implement getGrauImportancia() method.
         }
     }
