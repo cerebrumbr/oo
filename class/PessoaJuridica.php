@@ -25,7 +25,7 @@
 
         public function setCnpj($cnpj)
         {
-            $this->cnpj = mask($cnpj, "###.###.###-##");;
+            $this->cnpj = mask($cnpj, "##.###.###/####-##");
 
             return $this;
         }

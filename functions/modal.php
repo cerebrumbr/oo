@@ -25,8 +25,6 @@
         $id++;
 
         if(isset($cliente)){
-            $id = $key + 1;
-
             $pessoaJuridica = $cliente->ePessoaJuridica();
             $endereco = $cliente->getEndereco();
             $cidade = $cliente->getCidade();
@@ -38,9 +36,15 @@
                 'Tipo Pessoa' => $tipoPessoa,
                 ($pessoaJuridica ? 'Razão Social' : 'Nome') => $pessoaJuridica ? $cliente->getRazaoSocial() : $cliente->getNome(),
                 ($pessoaJuridica ? 'CNPJ' : 'CPF') => $pessoaJuridica ? $cliente->getCnpj() : $cliente->getCpf(),
+                'Endereço' => $endereco['residencial'],
+                'Cidade' => $cidade,
                 'Telefone' => $cliente->getTelefone(),
                 'Grau de importancia' => $grauImportancia . ' ' . ($grauImportancia > 1 ? 'estrelas' : 'estrela') . ' | ' . str_repeat('<i class="fa fa-star"></i>', $grauImportancia)
             ];
+
+            if($cliente->usaEnderecoCobranca()) {
+                $dados['Endereço cobrança'] = $cliente->getEnderecoCobranca();
+            }
 
             $modalBody = function() use ($dados) {
               $html = "";

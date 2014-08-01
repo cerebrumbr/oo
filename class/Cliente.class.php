@@ -10,7 +10,7 @@
         public function setEndereco($tipo = 'residencial', $endereco)
         {
             $tipo = ($tipo == 'residencial' || $tipo == 'cobranca' ? $tipo : 'residencial');
-            $this->endereco[$tipo][] = $endereco;
+            $this->endereco[$tipo] = $endereco;
 
             return $this;
         }
@@ -60,10 +60,16 @@
         }
 
         public function setEnderecoCobranca($endereco) {
-            $this->endereco['cobranca'][] = $endereco;
+            $this->endereco['cobranca'] = $endereco;
+
+            return $this;
         }
 
         public function getEnderecoCobranca() {
             return $this->endereco['cobranca'];
+        }
+
+        public function usaEnderecoCobranca() {
+            return isset($this->endereco['cobranca']);
         }
     }

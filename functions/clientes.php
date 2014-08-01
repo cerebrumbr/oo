@@ -4,7 +4,7 @@
         $pessoaJuridica = $cliente->ePessoaJuridica();
         if($pessoaJuridica)
         {
-            $nome = $cliente->getRazaoSocial();
+            $nome = $cliente->getNomeFantasia();
             $cpf = $cliente->getCnpj();
         } else {
             $nome = $cliente->getNome();
