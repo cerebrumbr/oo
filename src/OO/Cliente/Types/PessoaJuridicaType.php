@@ -11,6 +11,8 @@
         private $cnpj;
 
         public function __construct($nome, $razaoSocial, $cnpj) {
+            parent::__construct();
+
             $this->setNomeFantasia($nome)
                 ->setRazaoSocial($razaoSocial)
                 ->setCnpj($cnpj);

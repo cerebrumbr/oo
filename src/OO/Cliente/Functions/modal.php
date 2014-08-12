@@ -21,30 +21,23 @@
     }
 
     function modalClientes($obj, $id) {
-        $cliente = $obj[$id];
-        $id++;
+        $k = (int) $id - 1;
+        $cliente = $obj[$k];
 
         if(isset($cliente)){
             $pessoaJuridica = $cliente->ePessoaJuridica();
-            $endereco = $cliente->getEndereco();
-            $cidade = $cliente->getCidade();
-            $telefone = $cliente->getTelefone();
+            $nome = ($pessoaJuridica ? $cliente->getNomeFantasia() : $cliente->getNome());
             $tipoPessoa = ($pessoaJuridica ? 'Pessoa Jurídica' : 'Pessoa Física');
             $grauImportancia = $cliente->getGrauImportancia();
+            $enderecos = $cliente->getEnderecos();
+            $telefones = $cliente->getTelefones();
 
             $dados = [
                 'Tipo Pessoa' => $tipoPessoa,
-                ($pessoaJuridica ? 'Razão Social' : 'Nome') => $pessoaJuridica ? $cliente->getRazaoSocial() : $cliente->getNome(),
+                ($pessoaJuridica ? 'Razão Social' : 'Nome') => $nome,
                 ($pessoaJuridica ? 'CNPJ' : 'CPF') => $pessoaJuridica ? $cliente->getCnpj() : $cliente->getCpf(),
-                'Endereço' => $endereco['residencial'],
-                'Cidade' => $cidade,
-                'Telefone' => $cliente->getTelefone(),
                 'Grau de importancia' => $grauImportancia . ' ' . ($grauImportancia > 1 ? 'estrelas' : 'estrela') . ' | ' . str_repeat('<i class="fa fa-star"></i>', $grauImportancia)
             ];
-
-            if($cliente->usaEnderecoCobranca()) {
-                $dados['Endereço cobrança'] = $cliente->getEnderecoCobranca();
-            }
 
             $modalBody = function() use ($dados) {
               $html = "";
@@ -55,9 +48,37 @@
               return $html;
             };
 
+            $html = $modalBody() . "<hr> <b>Telefones:</b><br /><br />";
+
+            foreach($telefones as $telefone) {
+                $ddd = $telefone->getDdd();
+                $tel = $telefone->getTelefone();
+
+                $html .= "({$ddd}) {$tel}<br />";
+            }
+
+            $html .= "<hr> <b>Endereços:</b><br /><br />";
+
+            foreach($enderecos as $endereco) {
+                $enderecoCobranca = $endereco->EEnderecoCobranca();
+
+                if($enderecoCobranca) {
+                    $html .= "<div class=\"alert alert-success\" role=\"alert\">Endereço de Cobrança:</div>";
+                }
+
+                $html .= "
+                    <b>Logradouro:</b> {$endereco->getLogradouro()} - {$endereco->getNumero()}<br />
+                    <b>Bairro:</b> {$endereco->getBairro()}<br />
+                    <b>CEP:</b> {$endereco->getCEP()}<br />
+                    <b>Cidade:</b> {$endereco->getCidade()} / {$endereco->getEstado()}
+                ";
+
+                $html .= "<hr>";
+            }
+
             $modalTitle = "Cliente #{$id} {$nome}";
 
-            $html = modal($modalTitle, $modalBody());
+            $html = modal($modalTitle, $html);
 
         } else {
             $html = modal("Cliente não encontrado!", "O cliente <b>#{$id}</b> não foi encontrado no sistema!<br />

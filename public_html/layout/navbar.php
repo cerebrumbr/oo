@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.php">OO v 1.0.0</a>
+        <a class="navbar-brand" href="<?php echo BASE_URL; ?>">OO v 1.0.0</a>
     </div>
     <!-- /.navbar-header -->
     <!-- /.navbar-top-links -->
