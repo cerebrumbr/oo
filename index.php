@@ -91,10 +91,10 @@
 
     <title>OO - Code.Education</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <link href="css/sb-admin-2.css" rel="stylesheet">
-    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="public_html/css/bootstrap.min.css" rel="stylesheet">
+    <link href="public_html/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="public_html/css/sb-admin-2.css" rel="stylesheet">
+    <link href="public_html/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -160,10 +160,10 @@ if(isset($_GET['acao'])) {
 }
 ?>
 
-<script src="js/jquery-1.11.0.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/plugins/metisMenu/metisMenu.min.js"></script>
-<script src="js/sb-admin-2.js"></script>
+<script src="public_html/js/jquery-1.11.0.js"></script>
+<script src="public_html/js/bootstrap.min.js"></script>
+<script src="public_html/js/plugins/metisMenu/metisMenu.min.js"></script>
+<script src="public_html/js/sb-admin-2.js"></script>
 
 <script>
     $(document).ready(function(){
